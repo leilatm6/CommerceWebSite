@@ -1,0 +1,41 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>New List</h2>
+
+{% if message %}
+<div>{{ message }}</div>
+{% endif %}
+
+<form action="{% url 'newlist' %}" method="post">
+    {% csrf_token%}
+    <div class="form-group">
+        <input class="form-control" autofocus type="text" name="title" placeholder="title*">
+    </div>
+    <div class="form-group">
+        <textarea class="form-control" name="description" placeholder="Description*" rows="4" cols="50"></textarea>
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="number" name="intialbid" placeholder=" Inittial Bid*">
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="{% if user.is_authenticated %}" name="photo" placeholder="Picture Url">
+    </div>
+
+    <div class="form-group">
+        <label for="category">Choose Category: </label>
+        <select name="category" placeholder="category">
+            <option value=None>No Category</option>
+            {% for category in categoris%}
+            <option value="{{category.id}}">{{category}}</option>
+            {%endfor%}
+        </select>
+    </div>
+    <div class="form-group">
+        <input class="btn btn-primary" type="submit" value="Register">
+    </div>
+</form>
+
+Already have an account? <a href=" {% url 'login' %}">Log In here.</a>
+
+{% endblock %}

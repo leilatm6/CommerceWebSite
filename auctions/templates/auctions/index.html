@@ -1,7 +1,25 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
+<h2>Active Listings</h2>
 
-    TODO
+TODO
+
+{%for list in lists%}
+<table>
+    <tr>
+        <td>{{list.title}}</td>
+        <td>{{list.description}}</td>
+        <td>{{list.startingbid}}</td>
+        <td>{{list.imgeurl}}</td>
+    </tr>
+</table>
+{%endfor%}
+
+
+
+{% if user.is_authenticated %}
+<a class="nav-link" href="{% url 'newlist' %}">New List</a>
+
+{% endif %}
 {% endblock %}
