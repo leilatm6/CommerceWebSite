@@ -8,9 +8,10 @@ TODO
 {%for list in lists%}
 <table>
     <tr>
-        <td>{{list.title}}</td>
+        <td><a href="{% url 'list' list.id%}">{{list.title}}</a></td>
         <td>{{list.description}}</td>
-        <td>{{list.startingbid}}</td>
+        <td>{{list.bid.initialbid}}</td>
+        <td>{{list.bid.biddatetime}}</td>
         <td>{{list.imgeurl}}</td>
     </tr>
 </table>

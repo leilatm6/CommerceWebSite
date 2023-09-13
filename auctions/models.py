@@ -15,10 +15,20 @@ class Category(models.Model):
         return f"{self.name}"
 
 
+class Bid(models.Model):
+    initialbid = models.IntegerField()
+    numberofbids = models.IntegerField(default=0)
+    lastbid = models.IntegerField(default=0)
+    biddatetime = models.DateTimeField(null=True)
+    lastbiduser = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="activebids", null=True)
+
+
 class AuctionListing(models.Model):
     title = models.CharField(max_length=64)
     description = models.TextField()
-    startingbid = models.IntegerField()
+    bid = models.ForeignKey(Bid, on_delete=models.CASCADE,
+                            related_name='lastuser')
     imageurl = models.URLField(blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE,
                              related_name='sellingproduct')
@@ -28,8 +38,4 @@ class AuctionListing(models.Model):
         User, related_name='watchlist', blank='True')
 
     def __str__(self):
-        return f"{self.title}: {self.description} with price {self.startingbid} and user {self.user}"
-
-
-class Bids(models.Model):
-    amount = models.IntegerField()
+        return f"{self.title}: {self.description} with price {self.bid.initialbid} and user {self.user}"
